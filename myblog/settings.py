@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'introduction', #블로그 앱 (소개)
 ]
 
 MIDDLEWARE = [
