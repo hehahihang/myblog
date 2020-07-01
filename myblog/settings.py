@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'introduction', #블로그 앱 (소개)
+    'introduction',
 ]
 
 MIDDLEWARE = [
@@ -53,10 +53,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'myblog.urls'
 
+#장고 template 관련 설정
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'myblog','templates')], #프로젝트 범위에서 templates를 관리하기 위해서
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
