@@ -14,4 +14,10 @@ class PostAdmin(admin.ModelAdmin):
     search_fields = (
         'title',
     )
+
+class CommentAdmin(admin.ModelAdmin):
+    list_display = (
+        'id',
+        'content',
+    )
 # Register your models here.

@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include 
+from django.conf import settings
+from django.conf.urls.static import static
 from . import views 
 
 #앱의 url을 view와 연결하기 위해서는 각 html이 있는 경로를 import 해야한다.
@@ -23,4 +25,9 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('introduction/', include('introduction.urls')),
     path('', views.main, name="main"),
+    path('posts/', include('posts.urls')),
+    path('accounts/', include('allauth.urls')),
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+#url에 연결에서 MEDIA의 경로를 넣겠다?

@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h1>상품수정하기</h1>
+    <!-- 전달하는 방식 'posts앱의 모듈에 작성된 name=update인 url을 탐색한다. 뒤에 넘겨줄 인자를 작성한다-->
+    <form action="{% url 'posts:update' post.id %}" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label>글 제목</label>
+            <input type="text" class="form-control" name="title" value="{{post.title}}">
+        </div>
+        <div class="form-group">
+            <label>글 내용</label>
+            <!-- textarea 는 value가 따로 없어서 태그 사이에 {{post.content}}를 담아준다. -->
+            <textarea class="form-control" name="content">{{post.content}}</textarea>
+        </div>
+        <div>
+            <!--file형태로 image라는 이름을 가지고 들어와라-->
+            <input type="file" name="image">
+        </div>
+        <input type="submit" value="글 수정" class="btn btn-outline-primary">
+    </form>
+</div>
+{% endblock %}

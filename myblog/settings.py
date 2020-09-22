@@ -38,8 +38,18 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
     'introduction',
     'posts',
+
+    #allauth
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+
+    #providers 추가 : 어떤 소셜로그인 제공 업체로부터 서비스를 제공받을지 선택
+    #facebook의 경우 'allauth.socialaccount.providers.facebook'
+    'allauth.socialaccount.providers.google',
 ]
 
 MIDDLEWARE = [
@@ -124,7 +134,23 @@ USE_TZ = False
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
+#STATIC 파일은 개발 리소스 로서의 정적인 파일(CSS,JavaScript,css)
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR,'myblog','static')
 ]
+
+#MEDIA 파일은 유저가 업로드하는 동적인 파일(image,pdf ...)
+MEDIA_URL = '/media/' #각 미디어파일이 
+MEDIA_ROOT = os.path.join(BASE_DIR,'myblog','media')
+#MEDIA_ROOT = os.path.join(BASE_DIR, media가 저장될 경로 ,media를)
+
+AUTHENTICATION_BACKENDS = [
+    #Django superuser로 로그인 가능
+    'django.contrib.auth.backends.ModelBackend',
+    #이메일 등으로 로그인 가능
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
+
+SITE_ID = 1
+LOGIN_REDIRECT_URL = '/'

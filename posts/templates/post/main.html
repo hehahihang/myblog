@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+    {% if user.is_authenticated %}
+        {% include 'shared/_navbar.html' %}
+        <div class="container">
+            <h1>작성한 글 목록</h1><br>
+            <!--새 글 작성하기 버튼을 누르면 posts앱의 함수 new를 실행하고 함수 new가 new.html을 불러온다-->
+            <a href="{% url 'posts:create' %}" class="btn btn-primary">새 글 작성하기</a>
+            <div class="row">
+                {% for post in posts%} 
+                    <div class="col-md-4 col-12">
+                        <div class="card" style="width: 18rem; margintop: 20px;">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ post.title }}</h5>
+                                <p>조회수 : {{ post.view_count }}</p>
+                                <a href="{% url 'posts:post_like' post.id %}">
+                                    {% if user in post.like_user_set.all %}
+                                        <i class="fas fa-heart"></i>
+                                    {% else %}
+                                        <i class="far fa-heart"></i>
+                                    {% endif %} 
+                                </a>
+                                <!--상세보기 페이지, posts앱의 def show를 실행하고 여기서 show.html을 불러온다-->
+                                <a href="{% url 'posts:show' post.pk %}" class="btn btn-primary">상세 보기</a>
+                                <!--posts앱의 show함수 실행시 객체가 담겨진 post변수의 pk속성에 대한 것을 상세보기한다-->
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                </div>
+            </div>
+        {% else %}
+        {% include 'shared/_navbar.html' %}
+            <h3>로그인 후 이용 가능합니다.</h3>
+            <a href="{% url 'account_login' %}" class="btn btn-warning">로그인</a>
+            <a href="{% url 'account_signup' %}" class="btn btn-warning">회원가입</a>
+    {% endif %}
+{% endblock %}
