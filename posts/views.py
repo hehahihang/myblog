@@ -31,7 +31,7 @@ def create(request):
     return render(request, 'post/post_form.html',{'form':form})
 
 def main(req):
-    posts = Post.objects.all().order_by('updated_at')
+    posts = Post.objects.all().order_by('-created_at')
     return render(req, 'post/main.html', {'posts':posts})
 
 def show(req, id):
@@ -39,7 +39,7 @@ def show(req, id):
     post.view_count += 1
     post.save()
     all_comments = post.comments.all()
-    return render(req,'post/post_form.html',{'post':post, 'comments':all_comments})
+    return render(req,'post/show.html',{'post':post, 'comments':all_comments})
 
 # def update(req,id):
 #     post = get_object_or_404(Post,pk=id)
@@ -65,7 +65,7 @@ def update(request, id):
         if form.is_valid():
             form.save(user=request.user)
         return redirect('posts:main')
-    return render(request, 'post/main.html',{'form':form})
+    return render(request, 'post/post_form.html',{'form':form})
 
 #modelForm 상에서도 동일
 def delete(req,id):
